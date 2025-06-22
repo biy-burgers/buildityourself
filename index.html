@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>B.I.Y - Burger It Yourself</title>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cooper+Black&family=Comic+Neue&display=swap');
+
+    body {
+      font-family: 'Comic Neue', cursive;
+      background-color: #fff7e6;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-family: 'Cooper Black', sans-serif;
+      font-size: 36px;
+      text-transform: uppercase;
+    }
+
+    .step-title {
+      text-align: center;
+      font-family: 'Cooper Black', sans-serif;
+      font-size: 24px;
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+
+    .step-instruction {
+      text-align: center;
+      font-family: 'Comic Neue', cursive;
+      font-size: 18px;
+      color: #e67300;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: nowrap;
+    }
+
+    .ingredients-panel {
+      width: 160px;
+      border: 2px dashed #ccc;
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 10px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .ingredient-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .ingredient {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      cursor: grab;
+    }
+
+    .burger-builder {
+      width: 300px;
+      min-height: 500px;
+      background-color: #fdf4d6;
+      border: 2px solid #aaa;
+      border-radius: 10px;
+      position: relative;
+      padding-top: 30px;
+      padding-bottom: 30px;
+      text-align: center;
+    }
+
+    .bun {
+      width: 100%;
+    }
+
+    .burger-stack {
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .stack-item-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .stack-item {
+      width: 100%;
+      max-width: 300px;
+      cursor: grab;
+    }
+
+    .remove-btn {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    form {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    form input, form textarea {
+      display: block;
+      margin: 10px auto;
+      padding: 8px;
+      width: 80%;
+      max-width: 300px;
+    }
+
+    form button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: orange;
+      border: none;
+      color: white;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>B.I.Y - Burger It Yourself!</h1>
+
+  <div class="step-title">Step One: Build Your Own Burger</div>
+
+  <div class="container">
+    <div class="ingredients-panel">
+      <h2 style="font-size: 18px; text-align: center;">Ingredients</h2>
+      <div class="ingredient-list">
+        <img src="images/beef-patty.png" class="ingredient" draggable="true" alt="Beef Patty">
+        <img src="images/chicken-patty.png" class="ingredient" draggable="true" alt="Chicken Patty">
+        <img src="images/pork-patty.png" class="ingredient" draggable="true" alt="Pork Patty">
+        <img src="images/fish-fillet.png" class="ingredient" draggable="true" alt="Fish Fillet">
+        <img src="images/bacon.png" class="ingredient" draggable="true" alt="Bacon">
+        <img src="images/lettuce.png" class="ingredient" draggable="true" alt="Lettuce">
+        <img src="images/tomato.png" class="ingredient" draggable="true" alt="Tomato">
+        <img src="images/onion.png" class="ingredient" draggable="true" alt="Onion">
+        <img src="images/cucumber.png" class="ingredient" draggable="true" alt="Cucumber">
+        <img src="images/cheese.png" class="ingredient" draggable="true" alt="Cheese">
+        <img src="images/egg.png" class="ingredient" draggable="true" alt="Egg">
+        <img src="images/ketchup.png" class="ingredient" draggable="true" alt="Ketchup">
+        <img src="images/mustard.png" class="ingredient" draggable="true" alt="Mustard">
+        <img src="images/mayo.png" class="ingredient" draggable="true" alt="Mayo">
+        <img src="images/barbecue.png" class="ingredient" draggable="true" alt="Barbecue">
+        <img src="images/ranch.png" class="ingredient" draggable="true" alt="Ranch">
+      </div>
+    </div>
+
+    <div class="burger-builder" id="burger-builder">
+      <img src="images/top-bun.png" class="bun" alt="Top Bun">
+      <div id="burger-stack" class="burger-stack"></div>
+      <img src="images/bottom-bun.png" class="bun" alt="Bottom Bun">
+    </div>
+  </div>
+
+  <div class="step-title">Step Two: Submit Your Burger</div>
+  <p class="step-instruction">We'll receive your custom stack by email. No screenshot needed!</p>
+
+  <form action="https://formspree.io/f/mqabyael" method="POST" onsubmit="return prepareStackData()" target="_self">
+    <input type="hidden" name="_redirect" value="thankyou.html">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <textarea name="comment" placeholder="Any special requests?"></textarea>
+    <textarea name="burger_stack" id="burger-stack-data" hidden></textarea>
+    <button type="submit">Submit My Burger</button>
+  </form>
+
+  <script>
+    document.querySelectorAll('.ingredient').forEach(item => {
+      item.addEventListener('dragstart', event => {
+        event.dataTransfer.setData("src", event.target.src);
+        event.dataTransfer.setData("alt", event.target.alt);
+      });
+    });
+
+    const burgerStack = document.getElementById("burger-stack");
+
+    new Sortable(burgerStack, {
+      animation: 150,
+      handle: '.stack-item',
+      draggable: '.stack-item-wrapper'
+    });
+
+    document.getElementById("burger-builder").addEventListener("dragover", function(e) {
+      e.preventDefault();
+    });
+
+    document.getElementById("burger-builder").addEventListener("drop", function(e) {
+      e.preventDefault();
+      const src = e.dataTransfer.getData("src");
+      const alt = e.dataTransfer.getData("alt");
+      if (!src) return;
+
+      const wrapper = document.createElement("div");
+      wrapper.classList.add("stack-item-wrapper");
+
+      const newItem = document.createElement("img");
+      newItem.src = src;
+      newItem.alt = alt;
+      newItem.classList.add("stack-item");
+
+      const removeBtn = document.createElement("button");
+      removeBtn.classList.add("remove-btn");
+      removeBtn.innerText = "x";
+      removeBtn.onclick = () => wrapper.remove();
+
+      wrapper.appendChild(removeBtn);
+      wrapper.appendChild(newItem);
+      burgerStack.appendChild(wrapper);
+    });
+
+    function prepareStackData() {
+      const stackItems = document.querySelectorAll('.burger-stack .stack-item');
+      const ingredientNames = Array.from(stackItems).map(el => el.alt || 'Unknown');
+      document.getElementById('burger-stack-data').value = ingredientNames.join(', ');
+      return true;
+    }
+  </script>
+</body>
+</html>
+
+
