@@ -3,24 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <title>B.I.Y - Burger It Yourself</title>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cooper+Black&family=Comic+Neue&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cooper+Black&family=Pacifico&display=swap');
 
     body {
-      font-family: 'Comic Neue', cursive;
+      font-family: sans-serif;
       background-color: #fff7e6;
       margin: 0;
       padding: 20px;
     }
-
     h1 {
       text-align: center;
       font-family: 'Cooper Black', sans-serif;
       font-size: 36px;
       text-transform: uppercase;
     }
-
     .step-title {
       text-align: center;
       font-family: 'Cooper Black', sans-serif;
@@ -28,14 +27,12 @@
       margin-top: 30px;
       margin-bottom: 10px;
     }
-
     .step-instruction {
       text-align: center;
-      font-family: 'Comic Neue', cursive;
+      font-family: 'Pacifico', cursive;
       font-size: 18px;
       color: #e67300;
     }
-
     .container {
       display: flex;
       justify-content: center;
@@ -43,9 +40,8 @@
       gap: 40px;
       flex-wrap: nowrap;
     }
-
     .ingredients-panel {
-      width: 160px;
+      width: 250px;
       border: 2px dashed #ccc;
       padding: 10px;
       background-color: #fff;
@@ -53,21 +49,24 @@
       max-height: 90vh;
       overflow-y: auto;
     }
-
     .ingredient-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 20px;
       align-items: center;
     }
-
     .ingredient {
       width: 100%;
       max-width: 300px;
       height: auto;
       cursor: grab;
     }
-
+    .description {
+      font-family: 'Comic Sans MS', cursive;
+      font-size: 13px;
+      text-align: center;
+      margin-top: 5px;
+    }
     .burger-builder {
       width: 300px;
       min-height: 500px;
@@ -79,11 +78,9 @@
       padding-bottom: 30px;
       text-align: center;
     }
-
     .bun {
       width: 100%;
     }
-
     .burger-stack {
       min-height: 300px;
       display: flex;
@@ -91,19 +88,16 @@
       align-items: center;
       gap: 5px;
     }
-
     .stack-item-wrapper {
       position: relative;
       width: 100%;
       max-width: 300px;
     }
-
     .stack-item {
       width: 100%;
       max-width: 300px;
       cursor: grab;
     }
-
     .remove-btn {
       position: absolute;
       top: 2px;
@@ -117,29 +111,6 @@
       font-size: 14px;
       cursor: pointer;
     }
-
-    form {
-      margin-top: 40px;
-      text-align: center;
-    }
-
-    form input, form textarea {
-      display: block;
-      margin: 10px auto;
-      padding: 8px;
-      width: 80%;
-      max-width: 300px;
-    }
-
-    form button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      background-color: orange;
-      border: none;
-      color: white;
-      border-radius: 8px;
-    }
   </style>
 </head>
 <body>
@@ -151,22 +122,22 @@
     <div class="ingredients-panel">
       <h2 style="font-size: 18px; text-align: center;">Ingredients</h2>
       <div class="ingredient-list">
-        <img src="images/beef-patty.png" class="ingredient" draggable="true" alt="Beef Patty">
-        <img src="images/chicken-patty.png" class="ingredient" draggable="true" alt="Chicken Patty">
-        <img src="images/pork-patty.png" class="ingredient" draggable="true" alt="Pork Patty">
-        <img src="images/fish-fillet.png" class="ingredient" draggable="true" alt="Fish Fillet">
-        <img src="images/bacon.png" class="ingredient" draggable="true" alt="Bacon">
-        <img src="images/lettuce.png" class="ingredient" draggable="true" alt="Lettuce">
-        <img src="images/tomato.png" class="ingredient" draggable="true" alt="Tomato">
-        <img src="images/onion.png" class="ingredient" draggable="true" alt="Onion">
-        <img src="images/cucumber.png" class="ingredient" draggable="true" alt="Cucumber">
-        <img src="images/cheese.png" class="ingredient" draggable="true" alt="Cheese">
-        <img src="images/egg.png" class="ingredient" draggable="true" alt="Egg">
-        <img src="images/ketchup.png" class="ingredient" draggable="true" alt="Ketchup">
-        <img src="images/mustard.png" class="ingredient" draggable="true" alt="Mustard">
-        <img src="images/mayo.png" class="ingredient" draggable="true" alt="Mayo">
-        <img src="images/barbecue.png" class="ingredient" draggable="true" alt="Barbecue">
-        <img src="images/ranch.png" class="ingredient" draggable="true" alt="Ranch">
+        <div><img src="images/beef-patty.png" class="ingredient" draggable="true"><p class="description">Juicy ground beef patty, seasoned and pan-seared to perfection.<br><strong>Allergens:</strong> Egg, Wheat</p></div>
+        <div><img src="images/chicken-patty.png" class="ingredient" draggable="true"><p class="description">Tender chicken breast coated in seasoned breading and deep-fried until crispy.<br><strong>Allergen:</strong> Wheat</p></div>
+        <div><img src="images/pork-patty.png" class="ingredient" draggable="true"><p class="description">Seasoned ground pork patty, pan-seared for a flavorful crust.<br><strong>Allergens:</strong> Egg, Wheat</p></div>
+        <div><img src="images/fish-fillet.png" class="ingredient" draggable="true"><p class="description">White dory fillet in a crispy beer batter, fried until golden.<br><strong>Allergens:</strong> Egg, Wheat, Gluten, Beer</p></div>
+        <div><img src="images/bacon.png" class="ingredient" draggable="true"><p class="description">Crispy strips of bacon, adding smoky richness and crunch.</p></div>
+        <div><img src="images/lettuce.png" class="ingredient" draggable="true"><p class="description">Crisp, green lettuce leaves for a fresh and crunchy bite.</p></div>
+        <div><img src="images/tomato.png" class="ingredient" draggable="true"><p class="description">Slices of juicy, ripe tomato slices that add a refreshing burst of flavor.</p></div>
+        <div><img src="images/onion.png" class="ingredient" draggable="true"><p class="description">Sweet and savory onion slices slowly pan-seared and caramelized in butter.</p></div>
+        <div><img src="images/cucumber.png" class="ingredient" draggable="true"><p class="description">Slices of cool, crisp cucumber for a refreshing contrast to savory flavors.</p></div>
+        <div><img src="images/cheese.png" class="ingredient" draggable="true"><p class="description">Mild, creamy cheddar that melts beautifully over hot patties.</p></div>
+        <div><img src="images/egg.png" class="ingredient" draggable="true"><p class="description">A freshly cooked egg with a runny yolk for added richness and texture.<br><strong>Allergen:</strong> Egg</p></div>
+        <div><img src="images/ketchup.png" class="ingredient" draggable="true"><p class="description">Classic sweet and tangy tomato-based sauce for added flavor.</p></div>
+        <div><img src="images/mustard.png" class="ingredient" draggable="true"><p class="description">Sharp and tangy condiment that enhances the savory profile.</p></div>
+        <div><img src="images/mayo.png" class="ingredient" draggable="true"><p class="description">Creamy and rich, perfect for adding smoothness and moisture.<br><strong>Allergen:</strong> Egg</p></div>
+        <div><img src="images/ranch.png" class="ingredient" draggable="true"><p class="description">A creamy dressing of herbs and dairy, offering a cool, zesty flavor.<br><strong>Allergens:</strong> Egg, Milk</p></div>
+        <div><img src="images/barbecue.png" class="ingredient" draggable="true"><p class="description">Smoky and sweet sauce that brings bold, savory depth.<br><strong>Allergen:</strong> Soy, Wheat</p></div>
       </div>
     </div>
 
@@ -177,22 +148,13 @@
     </div>
   </div>
 
-  <div class="step-title">Step Two: Submit Your Burger</div>
-  <p class="step-instruction">We'll receive your custom stack by email. No screenshot needed!</p>
-
-  <form action="https://formspree.io/f/mqabyael" method="POST" onsubmit="return prepareStackData()" target="_self">
-    <input type="hidden" name="_redirect" value="thankyou.html">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <textarea name="comment" placeholder="Any special requests?"></textarea>
-    <textarea name="burger_stack" id="burger-stack-data" hidden></textarea>
-    <button type="submit">Submit My Burger</button>
-  </form>
+  <div class="step-title">Step Two: Take a Screenshot and Send!</div>
+  <p class="step-instruction">Snap a pic of your yummy creation and share it with us!</p>
 
   <script>
     document.querySelectorAll('.ingredient').forEach(item => {
       item.addEventListener('dragstart', event => {
         event.dataTransfer.setData("src", event.target.src);
-        event.dataTransfer.setData("alt", event.target.alt);
       });
     });
 
@@ -211,7 +173,6 @@
     document.getElementById("burger-builder").addEventListener("drop", function(e) {
       e.preventDefault();
       const src = e.dataTransfer.getData("src");
-      const alt = e.dataTransfer.getData("alt");
       if (!src) return;
 
       const wrapper = document.createElement("div");
@@ -219,7 +180,6 @@
 
       const newItem = document.createElement("img");
       newItem.src = src;
-      newItem.alt = alt;
       newItem.classList.add("stack-item");
 
       const removeBtn = document.createElement("button");
@@ -231,13 +191,6 @@
       wrapper.appendChild(newItem);
       burgerStack.appendChild(wrapper);
     });
-
-    function prepareStackData() {
-      const stackItems = document.querySelectorAll('.burger-stack .stack-item');
-      const ingredientNames = Array.from(stackItems).map(el => el.alt || 'Unknown');
-      document.getElementById('burger-stack-data').value = ingredientNames.join(', ');
-      return true;
-    }
   </script>
 </body>
 </html>
